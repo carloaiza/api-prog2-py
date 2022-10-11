@@ -1,4 +1,4 @@
-from flask import Blueprint,Response
+from flask import Blueprint,Response, request
 import json
 
 from service.list_se_service import ListSEService
@@ -15,3 +15,10 @@ def get_list():  # put application's code here
     return Response(status=200,
                     response=json.dumps(list_se_service.list.head
                                         , cls=UtilEncoder), mimetype="application/json")
+
+@app_list_se.route('/listse',methods=['POST'])
+def save_kid():
+    data = request.json
+    return Response(status=200,response=json.dumps({"message":
+                    list_se_service.add_kid(data)}),
+                    mimetype="application/json")

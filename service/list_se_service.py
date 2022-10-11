@@ -10,3 +10,13 @@ class ListSEService:
         murillo = Kid({"identification":"654321","name":"Jeronimo Murillo","age":5,"gender":"M"})
         self.list.add(murillo)
 
+    def add_kid(self,data):
+        #Aca irian las validaciones del dict
+        if "age" in data:
+            if data['age'] > 0:
+                self.list.add(Kid(data))
+                return "Kid adicionado exitosamente"
+            else:
+                return "La edad debe ser positiva"
+        else:
+            return "Atributo age no encontrado"
