@@ -36,4 +36,41 @@ class ListSE:
                 temp = temp.next
             self.head = listCp.head
 
+    def add_by_position(self,position:int,kid:Kid):
+        if position == 1:
+            self.add_to_start(kid)
+        else:
+            postemp =1
+            temp = self.head;
+            while postemp < (position-1):
+                temp = temp.next
+                postemp = postemp +1
+
+            newNode = Node(kid)
+            newNode.next = temp.next
+            temp.next = newNode
+            self.size += 1
+
+    def mix_by_gender(self):
+        if self.size > 1:
+            contM =1
+            contF = 2
+            temp = self.head
+            listCp = ListSE()
+            while temp != None:
+                if temp.data.gender =='M':
+                    if contM > listCp.size:
+                        listCp.add(temp.data)
+                    else:
+                        listCp.add_by_position(contM, temp.data)
+                    contM += 2
+                else:
+                    if contF > listCp.size:
+                        listCp.add(temp.data)
+                    else:
+                        listCp.add_by_position(contF, temp.data)
+                    contF += 2
+                temp = temp.next
+            self.head = listCp.head
+
 

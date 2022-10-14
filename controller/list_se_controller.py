@@ -1,6 +1,7 @@
 from flask import Blueprint,Response, request
 import json
 
+from model.dto.kid_by_position_dto import KidByPositionDTO
 from service.list_se_service import ListSEService
 from util.util_encoder import UtilEncoder
 
@@ -21,4 +22,18 @@ def save_kid():
     data = request.json
     return Response(status=200,response=json.dumps({"message":
                     list_se_service.add_kid(data)}),
+                    mimetype="application/json")
+
+@app_list_se.route('/listse/byposition', methods=['POST'])
+def save_by_position():
+    data = request.json
+    kidByPositionDTO = KidByPositionDTO(data['position'],data['kid'])
+    return  Response(status=200,response=json.dumps({"message":
+                    list_se_service.add_by_position(kidByPositionDTO)}),
+                    mimetype="application/json")
+
+@app_list_se.route('/listse/mixbygender')
+def mix_by_gender():
+    return Response(status=200, response=json.dumps({"message":
+                 list_se_service.mix_by_gender()}),
                     mimetype="application/json")

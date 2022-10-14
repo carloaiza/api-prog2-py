@@ -1,3 +1,4 @@
+from model.dto.kid_by_position_dto import KidByPositionDTO
 from model.kid import Kid
 from model.list_se import ListSE
 
@@ -5,10 +6,13 @@ class ListSEService:
     def __init__(self):
         self.list= ListSE()
         #mosquera = Kid("123456","Jeronimo Mosquera",4,"M")
+        sara = Kid({"identification": "434343", "name": "Sara", "age": 5, "gender": "F"})
+        self.list.add(sara)
         mosquera = Kid({"identification":"123456","name":"Jeronimo Mosquera","age":4,"gender":"M"})
         self.list.add(mosquera)
         murillo = Kid({"identification":"654321","name":"Jeronimo Murillo","age":5,"gender":"M"})
         self.list.add(murillo)
+
 
     def add_kid(self,data):
         #Aca irian las validaciones del dict
@@ -20,3 +24,15 @@ class ListSEService:
                 return "La edad debe ser positiva"
         else:
             return "Atributo age no encontrado"
+
+
+    def add_by_position(self,kidByPositionDTO:KidByPositionDTO):
+        if kidByPositionDTO.position > 0 and kidByPositionDTO.position <= (self.list.size +1):
+            self.list.add_by_position(kidByPositionDTO.position,kidByPositionDTO.kid)
+            return "Adicionado exitosamente"
+        else:
+            return "Posición no permitida"
+
+    def mix_by_gender(self):
+        self.list.mix_by_gender()
+        return "Se ha ejecutado la mezcla"
